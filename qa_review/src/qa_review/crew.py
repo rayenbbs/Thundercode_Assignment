@@ -81,30 +81,35 @@ class QaReview():
 	def analyze_web_performance_task(self) -> Task:
 		return Task(
 			config=self.tasks_config['analyze_web_performance_task'],
+      		async_execution=True
 		)
   
 	@task
 	def analyze_web_accessibility_task(self) -> Task:
 		return Task(
 			config=self.tasks_config['analyze_web_accessibility_task'],
+      		async_execution=True
 		)
   
 	@task
 	def analyze_web_best_practices_task(self) -> Task:
 		return Task(
 			config=self.tasks_config['analyze_web_best_practices_task'],
+   			async_execution=True
 		)
   
 	@task
 	def analyze_SEO_task(self) -> Task:
 		return Task(
 			config=self.tasks_config['analyze_SEO_task'],
-		)
+			async_execution=True
+  		)
   
 	@task
 	def detect_html_bugs(self) -> Task:
 		return Task(
 			config=self.tasks_config['detect_html_bugs'],
+			async_execution=True
 		)
 
 	@task
