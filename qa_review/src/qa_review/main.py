@@ -15,7 +15,7 @@ def run():
     """
     Run the crew.
     """
-    inputs = {"website_url": "https://www.jeinsat.com/","topic":"QA review"
+    inputs = {"website_url": "https://www.jeinsat.com/","topic":"QA"
     }
     QaReview().crew().kickoff(inputs=inputs)
 
@@ -25,7 +25,7 @@ def train():
     Train the crew for a given number of iterations.
     """
     inputs = {
-        "topic": "QA review "
+        "topic": "QA "
     }
     try:
         QaReview().crew().train(n_iterations=int(sys.argv[1]), filename=sys.argv[2], inputs=inputs)
@@ -48,7 +48,7 @@ def test():
     Test the crew execution and returns the results.
     """
     inputs = {
-        "topic": "QA review "
+        "topic": "QA"
     }
     try:
         QaReview().crew().test(n_iterations=int(sys.argv[1]), openai_model_name=sys.argv[2], inputs=inputs)

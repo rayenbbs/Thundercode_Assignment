@@ -5,6 +5,7 @@ from crewai.project import CrewBase, agent, crew, task
 from src.qa_review.tools.page_accessibility_tool import PageAccessibilityTool
 from src.qa_review.tools.page_performance_tool import PagePerformanceTool
 from src.qa_review.tools.page_best_practices_tool import PageBestPracticesTool
+from src.qa_review.tools.page_seo_tool import PageSEOTool
 
 # If you want to run a snippet of code before or after the crew starts, 
 # you can use the @before_kickoff and @after_kickoff decorators
@@ -47,6 +48,14 @@ class QaReview():
 		)
   
 	@agent
+	def pageSEO_analyzer(self) -> Agent:
+		return Agent(
+			config=self.agents_config['pageSEO_analyzer'],
+   			tools=[PageSEOTool()],
+			verbose=True
+		)
+  
+	@agent
 	def reporting_analyst(self) -> Agent:
 		return Agent(
 			config=self.agents_config['reporting_analyst'],
@@ -73,12 +82,18 @@ class QaReview():
 		return Task(
 			config=self.tasks_config['analyze_web_best_practices_task'],
 		)
+  
+	@task
+	def analyze_SEO_task(self) -> Task:
+		return Task(
+			config=self.tasks_config['analyze_SEO_task'],
+		)
 
 	@task
 	def reporting_task(self) -> Task:
 		return Task(
 			config=self.tasks_config['reporting_task'],
-       		context=[self.analyze_web_performance_task(),self.analyze_web_accessibility_task(),self.analyze_web_best_practices_task()],
+       		context=[self.analyze_web_performance_task(),self.analyze_web_accessibility_task(),self.analyze_web_best_practices_task(),self.analyze_SEO_task()],
 			output_file='report.md'
 		)
 

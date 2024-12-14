@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 class PagePerformanceToolInput(BaseModel):
-    """Input schema for PageSpeedTool."""
+    """Input schema for PagePerformanceTool."""
     url: str = Field(..., description="The URL of the website to analyze.")
 
 class PagePerformanceTool(BaseTool):

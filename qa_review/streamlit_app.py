@@ -26,7 +26,7 @@ if st.button("Run Analysis"):
     if (url and is_valid_url(url)):
         with st.spinner("Running analysis..."):
             try:
-                inputs = {"website_url": url,"topic":"QA review"}
+                inputs = {"website_url": url,"topic":"QA"}
                 results = testing_crew.crew().kickoff(inputs=inputs)
                 report_path = "./report.md" 
                 if os.path.exists(report_path):

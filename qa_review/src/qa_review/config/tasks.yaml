@@ -1,19 +1,21 @@
 analyze_web_performance_task:
   description: >
-    Analyze the performance of "{website_url}" using the tool provided.
-    Provide insights on the following:
+    Analyze the performance of the website at "{website_url}" using the provided tools.
+    Key areas to assess include:
     - Overall performance score.
-    - Key metrics.
-    - Opportunities for improvement and diagnostics.
-    If you don't have enough data generate a brief summary of the input.
-    IMPORTANT: Always provide output!
+    - Key performance metrics (e.g., FCP, LCP, TTI).
+    - Opportunities for optimization and diagnostics.
+
+    If detailed data is unavailable, provide a brief summary of the input and identify possible reasons for missing insights.
+    NOTE: Ensure the report is clear, actionable, and always includes output.
 
   expected_output: >
-    A summarized report including:
+    A structured performance report including:
     - The performance score (0–100).
-    - Key metrics of performance and their values.
-    - A summary of improvement opportunities and diagnostics.
-    - Suggestions to improve the web page's performance.
+    - Key metrics with their values.
+    - Identified opportunities for improvement with explanations.
+    - Diagnostics or issues encountered during the analysis.
+    - Actionable suggestions to optimize web page performance.
   agent: pagePerformance_analyzer
   inputs:
     website_url: "{website_url}"
@@ -21,51 +23,91 @@ analyze_web_performance_task:
 
 analyze_web_accessibility_task:
   description: >
-    Analyze the accessibility of "{website_url}" using the tool provided.
-    Provide insights on the following:
+    Evaluate the accessibility of the website at "{website_url}" using the provided tools.
+    Focus on identifying:
     - Overall accessibility score.
-    - Key metrics.
+    - Key accessibility metrics (e.g., contrast ratios, ARIA usage).
     - Opportunities for improvement and diagnostics.
-    If you don't have enough data generate a brief summary of the input.
-    IMPORTANT: Always provide output!
+
+    If comprehensive data is unavailable, generate a brief summary of the input and potential issues impacting the assessment.
+    NOTE: Always provide a complete and actionable output.
 
   expected_output: >
-    A summarized report including:
+    A structured accessibility report including:
     - The accessibility score (0–100).
-    - Key metrics and their values.
-    - A summary of improvement opportunities and diagnostics.
-    - Suggestions to improve the web page's accessibility.
+    - Key metrics and their values (e.g., contrast issues, navigability).
+    - Identified opportunities to improve accessibility.
+    - Diagnostics or challenges encountered during analysis.
+    - Suggestions to make the web page more inclusive and accessible.
   agent: pageAccessibility_analyzer
   inputs:
     website_url: "{website_url}"
 
+
 analyze_web_best_practices_task:
   description: >
-    Analyze the best-practices of "{website_url}" using the tool provided.
-    Provide insights on the following:
-    - Overall compliance to best-practices score.
-    - Key metrics.
+    Assess the compliance of "{website_url}" with web development best practices.
+    Provide insights on:
+    - Overall best-practices compliance score.
+    - Key metrics (e.g., HTTPS usage, resource optimizations).
     - Opportunities for improvement and diagnostics.
-    If you don't have enough data generate a brief summary of the input.
-    IMPORTANT: Always provide output!
 
+    If full data is unavailable, create a brief summary of the input and outline potential reasons for missing insights.
+    NOTE: Ensure the output is actionable and easy to understand.
 
   expected_output: >
-    A summarized report including:
+    A best-practices compliance report including:
     - The compliance score (0–100).
-    - Key metrics and their values.
-    - A summary of improvement opportunities and diagnostics.
-    - Suggestions to improve the web page's compliance to best-practices.
+    - Key metrics and their values (e.g., secure connection, resource handling).
+    - Opportunities for improvement and potential best-practices violations.
+    - Diagnostics or issues encountered during the analysis.
+    - Suggestions for improving compliance with best practices.
   agent: pageBestPractices_analyzer
   inputs:
     website_url: "{website_url}"
 
 
+
+
+analyze_SEO_task:
+  description: >
+    Evaluate the SEO performance of the website at "{website_url}" using the provided tools.
+    Key areas to focus on:
+    - Overall SEO score.
+    - Key SEO metrics (e.g., metadata, structured data, mobile-friendliness).
+    - Opportunities for optimization and diagnostics.
+
+    If detailed data is unavailable, create a brief summary of the input and outline reasons for missing insights.
+    NOTE: Always provide a clear and actionable report.
+
+  expected_output: >
+    An SEO performance report including:
+    - The SEO score (0–100).
+    - Key metrics with their values (e.g., title tags, alt text, structured data issues).
+    - Opportunities for SEO improvement and compliance.
+    - Diagnostics or challenges encountered during the analysis.
+    - Suggestions to improve the SEO performance of the website.
+  agent: pageSEO_analyzer
+  inputs:
+    website_url: "{website_url}"
+
+
+
 reporting_task:
   description: >
-    Review the context you got from all agents and expand each topic into a full section for a report.
-    Make sure the report is detailed and contains any and all relevant information.
+    Consolidate insights from all agents into a comprehensive report.
+    Expand each topic (Performance, Accessibility, Best Practices, and SEO) into detailed sections with full context and relevant information.
+    Ensure the report is:
+    - Clear and well-organized.
+    - Comprehensive, covering all relevant findings.
+    - Actionable, with specific recommendations for improvement.
+
+    Use a structured format and ensure readability.
+
   expected_output: >
-    A summarized reports with the mains topics, each with a full section of information.
-    Formatted as markdown without '```'
+    A detailed and consolidated report including:
+    - A separate section for each topic (Performance, Accessibility, Best Practices, SEO) with full context.
+    - Each section should summarize key findings, scores, metrics, diagnostics, and actionable recommendations.
+    - Formatted as markdown (excluding code blocks or triple backticks) for readability.
   agent: reporting_analyst
+
