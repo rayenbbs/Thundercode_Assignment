@@ -93,6 +93,27 @@ analyze_SEO_task:
 
 
 
+detect_html_bugs:
+  description: >
+    Extract the HTML of the website at "{website_url}" and perform a thorough analysis to identify potential issues or bugs.
+    Focus on detecting problems such as:
+    - Broken or missing tags
+    - Improper nesting of elements
+    - Missing attributes (e.g., alt attributes for images)
+    - Missing or duplicate meta tags
+    - Inline styles or JavaScript that should be externalized
+
+    Your final answer MUST include:
+    - A list of identified issues with their line numbers or locations (if possible).
+    - Suggestions to fix each issue.
+
+  expected_output: >
+    A report containing:
+    - A summary of the analysis.
+    - A detailed list of detected HTML issues with their descriptions and locations.
+    - Recommendations for resolving each issue.
+  agent: html_expert
+
 reporting_task:
   description: >
     Consolidate insights from all agents into a comprehensive report.

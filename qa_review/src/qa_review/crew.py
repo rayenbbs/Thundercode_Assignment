@@ -6,10 +6,12 @@ from src.qa_review.tools.page_accessibility_tool import PageAccessibilityTool
 from src.qa_review.tools.page_performance_tool import PagePerformanceTool
 from src.qa_review.tools.page_best_practices_tool import PageBestPracticesTool
 from src.qa_review.tools.page_seo_tool import PageSEOTool
+from src.qa_review.tools.page_html_tool import PageHTMLTool
 
 # If you want to run a snippet of code before or after the crew starts, 
 # you can use the @before_kickoff and @after_kickoff decorators
 # https://docs.crewai.com/concepts/crews#example-crew-class-with-decorators
+
 
 @CrewBase
 class QaReview():
@@ -30,7 +32,8 @@ class QaReview():
    			tools=[PagePerformanceTool()],
 			verbose=True
 		)
-
+  
+	
 	@agent
 	def pageAccessibility_analyzer(self) -> Agent:
 		return Agent(
@@ -54,6 +57,15 @@ class QaReview():
    			tools=[PageSEOTool()],
 			verbose=True
 		)
+  
+	@agent
+	def html_expert(self) -> Agent:
+		return Agent(
+			config=self.agents_config['html_expert'],
+   			tools=[PageHTMLTool()],
+			verbose=True
+		)
+  	
   
 	@agent
 	def reporting_analyst(self) -> Agent:
@@ -88,12 +100,18 @@ class QaReview():
 		return Task(
 			config=self.tasks_config['analyze_SEO_task'],
 		)
+  
+	@task
+	def detect_html_bugs(self) -> Task:
+		return Task(
+			config=self.tasks_config['detect_html_bugs'],
+		)
 
 	@task
 	def reporting_task(self) -> Task:
 		return Task(
 			config=self.tasks_config['reporting_task'],
-       		context=[self.analyze_web_performance_task(),self.analyze_web_accessibility_task(),self.analyze_web_best_practices_task(),self.analyze_SEO_task()],
+       		context=[self.analyze_web_performance_task(),self.analyze_web_accessibility_task(),self.analyze_web_best_practices_task(),self.analyze_SEO_task(),self.detect_html_bugs()],
 			output_file='report.md'
 		)
 
@@ -103,10 +121,12 @@ class QaReview():
 		# To learn how to add knowledge sources to your crew, check out the documentation:
 		# https://docs.crewai.com/concepts/knowledge#what-is-knowledge
 
+  
 		return Crew(
 			agents=self.agents, # Automatically created by the @agent decorator
 			tasks=self.tasks, # Automatically created by the @task decorator
 			process=Process.sequential,
 			verbose=True,
+
 			# process=Process.hierarchical, # In case you wanna use that instead https://docs.crewai.com/how-to/Hierarchical/
 		)
