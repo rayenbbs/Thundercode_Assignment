@@ -3,31 +3,25 @@ from crewai.tools import BaseTool
 from typing import Type
 from pydantic import BaseModel, Field
 
+class PageHTTPHeaderToolInput(BaseModel):
+    """Input schema for PageHTTPHeaderTool."""
+    url: str = Field(..., description="The URL of the website to get HTTP Header from.")
 
-class PageHTMLToolInput(BaseModel):
-    """Input schema for PageHTMLTool."""
-    url: str = Field(..., description="The URL of the website to get html from.")
-
-class PageHTMLTool(BaseTool):
-    name: str = "Page HTML extractor Tool"
+class PageHTTPHeaderTool(BaseTool):
+    name: str = "Page HTTP Header extractor Tool"
     description: str = (
-        "Fetches Page HTML for a given URL. Useful for analyzing web page HTML."
+        "Fetches Page  HTTP Header  for a given URL. Useful for analyzing web page  HTTP Header ."
     )
-    args_schema: Type[BaseModel] = PageHTMLToolInput
-
+    args_schema: Type[BaseModel] = PageHTTPHeaderToolInput
     def _run(self,url:str) -> str:
-        """Run method for the Page HTML tool."""
+        """Run method for the Page HTTP Header tool."""
 
         if not url:
             return "No URL provided to analyze."
-        
         try:
-            # Send a GET request to the website
-            response = requests.get(url, timeout=10)
+            response = requests.get(url)
             response.raise_for_status()
-
-            # Return the HTML content of the website
-            return response.text
+            return response.headers
         except requests.exceptions.MissingSchema:
             return "Invalid URL format. Make sure the URL starts with http:// or https://"
         except requests.exceptions.ConnectionError:

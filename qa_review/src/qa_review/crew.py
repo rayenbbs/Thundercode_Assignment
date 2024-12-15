@@ -7,6 +7,7 @@ from src.qa_review.tools.page_performance_tool import PagePerformanceTool
 from src.qa_review.tools.page_best_practices_tool import PageBestPracticesTool
 from src.qa_review.tools.page_seo_tool import PageSEOTool
 from src.qa_review.tools.page_html_tool import PageHTMLTool
+from src.qa_review.tools.page_http_header_tool import PageHTTPHeaderTool
 
 # If you want to run a snippet of code before or after the crew starts, 
 # you can use the @before_kickoff and @after_kickoff decorators
@@ -65,6 +66,14 @@ class QaReview():
    			tools=[PageHTMLTool()],
 			verbose=True
 		)
+  
+	@agent
+	def web_security_specialist(self) -> Agent:
+		return Agent(
+			config=self.agents_config['web_security_specialist'],
+   			tools=[PageHTTPHeaderTool()],
+			verbose=True
+		)
   	
   
 	@agent
@@ -111,12 +120,19 @@ class QaReview():
 			config=self.tasks_config['detect_html_bugs'],
 			async_execution=True
 		)
+  
+	@task
+	def analyze_http_security_task(self) -> Task:
+		return Task(
+			config=self.tasks_config['analyze_http_security_task'],
+			async_execution=True
+		)
 
 	@task
 	def reporting_task(self) -> Task:
 		return Task(
 			config=self.tasks_config['reporting_task'],
-       		context=[self.analyze_web_performance_task(),self.analyze_web_accessibility_task(),self.analyze_web_best_practices_task(),self.analyze_SEO_task(),self.detect_html_bugs()],
+       		context=[self.analyze_web_performance_task(),self.analyze_web_accessibility_task(),self.analyze_web_best_practices_task(),self.analyze_SEO_task(),self.detect_html_bugs(),self.analyze_http_security_task()],
 			output_file='report.md'
 		)
 
@@ -132,6 +148,5 @@ class QaReview():
 			tasks=self.tasks, # Automatically created by the @task decorator
 			process=Process.sequential,
 			verbose=True,
-
 			# process=Process.hierarchical, # In case you wanna use that instead https://docs.crewai.com/how-to/Hierarchical/
 		)

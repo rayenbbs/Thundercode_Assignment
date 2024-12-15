@@ -114,10 +114,33 @@ detect_html_bugs:
     - Recommendations for resolving each issue.
   agent: html_expert
 
+
+analyze_http_security_task:
+  description: >
+    Fetch and analyze the HTTP headers of the website at "{website_url}" to identify potential security risks.
+    Key focus areas include:
+    - Presence of critical headers such as `Strict-Transport-Security`, `Content-Security-Policy`, and `X-Frame-Options`.
+    - Detection of insecure configurations or missing headers.
+    - Analysis of header values to ensure adherence to security best practices.
+
+    If headers cannot be fetched, provide a detailed explanation of the issue.
+    NOTE: Always include clear, actionable recommendations in the final output.
+
+  expected_output: >
+    A security analysis report including:
+    - A summary of the headers analyzed.
+    - Detected issues with descriptions of their risks.
+    - Suggestions to resolve the identified issues.
+    - Additional recommendations to improve HTTP header security.
+
+  agent: web_security_specialist
+ 
+
+
 reporting_task:
   description: >
     Consolidate insights from all agents into a comprehensive report.
-    Expand each topic (Performance, Accessibility, Best Practices, and SEO) into detailed sections with full context and relevant information.
+    Expand each topic (Performance, Accessibility, Best Practices,SEO,Security,Presence of HTML bugs) into detailed sections with full context and relevant information.
     Ensure the report is:
     - Clear and well-organized.
     - Comprehensive, covering all relevant findings.
