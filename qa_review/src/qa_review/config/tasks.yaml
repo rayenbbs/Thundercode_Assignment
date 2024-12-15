@@ -140,7 +140,7 @@ analyze_http_security_task:
 reporting_task:
   description: >
     Consolidate insights from all agents into a comprehensive report.
-    Expand each topic (Performance, Accessibility, Best Practices,SEO,Security,Presence of HTML bugs) into detailed sections with full context and relevant information.
+    Expand each topic (Performance, Accessibility, Best Practices,SEO,Security,HTML) into detailed sections with full context and relevant information.
     Ensure the report is:
     - Clear and well-organized.
     - Comprehensive, covering all relevant findings.
