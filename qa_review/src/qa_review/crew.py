@@ -60,9 +60,9 @@ class QaReview():
 		)
   
 	@agent
-	def html_expert(self) -> Agent:
+	def html_content_analyzer(self) -> Agent:
 		return Agent(
-			config=self.agents_config['html_expert'],
+			config=self.agents_config['html_content_analyzer'],
    			tools=[PageHTMLTool()],
 			verbose=True
 		)
@@ -90,50 +90,56 @@ class QaReview():
 	def analyze_web_performance_task(self) -> Task:
 		return Task(
 			config=self.tasks_config['analyze_web_performance_task'],
-      		async_execution=True
+      		async_execution=True,
+			output_file='outputs/performance_report.md'
 		)
   
 	@task
 	def analyze_web_accessibility_task(self) -> Task:
 		return Task(
 			config=self.tasks_config['analyze_web_accessibility_task'],
-      		async_execution=True
+      		async_execution=True,
+        	output_file='outputs/accessibility_report.md'
 		)
   
 	@task
 	def analyze_web_best_practices_task(self) -> Task:
 		return Task(
 			config=self.tasks_config['analyze_web_best_practices_task'],
-   			async_execution=True
+   			async_execution=True,
+			output_file='outputs/best_practices_report.md'
 		)
   
 	@task
 	def analyze_SEO_task(self) -> Task:
 		return Task(
 			config=self.tasks_config['analyze_SEO_task'],
-			async_execution=True
+			async_execution=True,
+			output_file='outputs/SEO_report.md'
   		)
   
 	@task
-	def detect_html_bugs(self) -> Task:
+	def analyze_html_task(self) -> Task:
 		return Task(
-			config=self.tasks_config['detect_html_bugs'],
-			async_execution=True
+			config=self.tasks_config['analyze_html_task'],
+			async_execution=True,
+			output_file='outputs/html_report.md'
 		)
   
 	@task
 	def analyze_http_security_task(self) -> Task:
 		return Task(
 			config=self.tasks_config['analyze_http_security_task'],
-			async_execution=True
+			async_execution=True,
+			output_file="outputs/security_report.md"
 		)
 
 	@task
 	def reporting_task(self) -> Task:
 		return Task(
 			config=self.tasks_config['reporting_task'],
-       		context=[self.analyze_web_performance_task(),self.analyze_web_accessibility_task(),self.analyze_web_best_practices_task(),self.analyze_SEO_task(),self.detect_html_bugs(),self.analyze_http_security_task()],
-			output_file='report.md'
+       		context=[self.analyze_web_performance_task(),self.analyze_web_accessibility_task(),self.analyze_web_best_practices_task(),self.analyze_SEO_task(),self.analyze_html_task(),self.analyze_http_security_task()],
+			output_file='outputs/report.md'
 		)
 
 	@crew

@@ -16,6 +16,7 @@ analyze_web_performance_task:
     - Identified opportunities for improvement with explanations.
     - Diagnostics or issues encountered during the analysis.
     - Actionable suggestions to optimize web page performance.
+    - Formatted as markdown (excluding code blocks or triple backticks) for readability.
   agent: pagePerformance_analyzer
   inputs:
     website_url: "{website_url}"
@@ -39,6 +40,8 @@ analyze_web_accessibility_task:
     - Identified opportunities to improve accessibility.
     - Diagnostics or challenges encountered during analysis.
     - Suggestions to make the web page more inclusive and accessible.
+    - Formatted as markdown (excluding code blocks or triple backticks) for readability.
+
   agent: pageAccessibility_analyzer
   inputs:
     website_url: "{website_url}"
@@ -62,6 +65,7 @@ analyze_web_best_practices_task:
     - Opportunities for improvement and potential best-practices violations.
     - Diagnostics or issues encountered during the analysis.
     - Suggestions for improving compliance with best practices.
+    - Formatted as markdown (excluding code blocks or triple backticks) for readability.
   agent: pageBestPractices_analyzer
   inputs:
     website_url: "{website_url}"
@@ -87,32 +91,40 @@ analyze_SEO_task:
     - Opportunities for SEO improvement and compliance.
     - Diagnostics or challenges encountered during the analysis.
     - Suggestions to improve the SEO performance of the website.
+    - Formatted as markdown (excluding code blocks or triple backticks) for readability.
+
   agent: pageSEO_analyzer
   inputs:
     website_url: "{website_url}"
 
 
 
-detect_html_bugs:
+analyze_html_task:
   description: >
-    Extract the HTML of the website at "{website_url}" and perform a thorough analysis to identify potential issues or bugs.
-    Focus on detecting problems such as:
-    - Broken or missing tags
-    - Improper nesting of elements
-    - Missing attributes (e.g., alt attributes for images)
-    - Missing or duplicate meta tags
-    - Inline styles or JavaScript that should be externalized
+    Extract the HTML of the website at "{website_url}" and perform a thorough analysis to identify potential issues or bugs as well as analyze the content for readability and relevance.
+    The task must focus on:
+    - Detecting problems such as broken or missing tags, improper nesting of elements, missing attributes (e.g., alt attributes for images), missing or duplicate meta tags, and inline styles or JavaScript that should be externalized.
+    - Analyzing the content for:
+      - Readability (e.g., Flesch Reading Ease score, sentence length, use of jargon).
+      - Structure (e.g., proper use of headings, paragraphs, and lists).
+      - Relevance (e.g., keyword density, match with meta descriptions).
 
     Your final answer MUST include:
-    - A list of identified issues with their line numbers or locations (if possible).
+    - A list of identified HTML issues with their line numbers or locations (if possible).
     - Suggestions to fix each issue.
+    - Content analysis insights such as readability scores, structural observations, and keyword analysis.
+    - Suggestions to improve readability, structure, and relevance.
 
   expected_output: >
     A report containing:
     - A summary of the analysis.
     - A detailed list of detected HTML issues with their descriptions and locations.
     - Recommendations for resolving each issue.
-  agent: html_expert
+    - Insights on content readability, structure, and relevance, along with actionable recommendations.
+    - Formatted as markdown (excluding code blocks or triple backticks) for readability.
+
+
+  agent: html_content_analyzer
 
 
 analyze_http_security_task:
@@ -132,6 +144,7 @@ analyze_http_security_task:
     - Detected issues with descriptions of their risks.
     - Suggestions to resolve the identified issues.
     - Additional recommendations to improve HTTP header security.
+    - Formatted as markdown (excluding code blocks or triple backticks) for readability.
 
   agent: web_security_specialist
  

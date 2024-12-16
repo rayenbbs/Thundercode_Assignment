@@ -35,12 +35,12 @@ class PagePerformanceTool(BaseTool):
             json_data=response.json()
             
             json_data=json_data["lighthouseResult"]["audits"]
-            #lighthouseResult_audits_keystokeep = {"server-response-time","duplicated-javascript","lcp-lazy-loaded","diagnostics","metrics","bootup-time","network-server-latency","layout-shifts","first-contentful-paint","legacy-javascript","resource-summary","speed-index","interactive","first-meaningful-paint","first-cpu-idle","estimated-input-latency","largest-contentful-paint-element","largest-contentful-paint"} 
-            lighthouseResult_audits_keystokeep_reduced = {"diagnostics","metrics","bootup-time","first-contentful-paint","resource-summary","speed-index","interactive","first-meaningful-paint","first-cpu-idle","largest-contentful-paint"} 
+            lighthouseResult_audits_keystokeep = {"server-response-time","duplicated-javascript","lcp-lazy-loaded","diagnostics","metrics","bootup-time","network-server-latency","layout-shifts","first-contentful-paint","legacy-javascript","resource-summary","speed-index","interactive","first-meaningful-paint","first-cpu-idle","estimated-input-latency","largest-contentful-paint-element","largest-contentful-paint"} 
+            #lighthouseResult_audits_keystokeep_reduced = {"diagnostics","metrics","bootup-time","first-contentful-paint","resource-summary","speed-index","interactive","first-meaningful-paint","first-cpu-idle","largest-contentful-paint"} 
             json_data= {
                 key: value
                 for key, value in json_data.items()
-                if key in lighthouseResult_audits_keystokeep_reduced
+                if key in lighthouseResult_audits_keystokeep
             }
             
             
