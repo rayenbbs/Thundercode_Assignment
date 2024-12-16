@@ -31,7 +31,7 @@ if st.button("Run Analysis"):
         with st.spinner("Running analysis..."):
             try:
                 inputs = {"website_url": url,"topic":"Quality Assurance"}
-                #results = testing_crew.crew().kickoff(inputs=inputs)
+                results = testing_crew.crew().kickoff(inputs=inputs)
                 st.session_state["analysis_complete"] = True
                 st.success("Analysis completed! Use the sidebar to navigate between sections.")
             except Exception as e:
@@ -46,17 +46,30 @@ if "analysis_complete" in st.session_state and st.session_state["analysis_comple
     st.title(f"{selected_section} Analysis")
     try:
         content = load_markdown(sections[selected_section])
-        pdf_buffer = convert_markdown_to_pdf(content)
+        pdf_buffer = None
+        pdf_conversion_error = False
+
+        try:
+            pdf_buffer = convert_markdown_to_pdf(content)
+        except Exception as e:
+            pdf_conversion_error = True
+
         markdown_buffer = BytesIO(content.encode("utf-8"))
 
         col1, col2 = st.columns([1,1])
         with col1:
-            st.download_button(
-                label="Download Report as PDF",
-                data=pdf_buffer,
-                file_name=f"{selected_section.replace(' ', '_').lower()}_report.pdf",
-                mime="application/pdf"
-            )
+            if(not pdf_conversion_error):
+                st.download_button(
+                    label="Download Report as PDF",
+                    data=pdf_buffer,
+                    file_name=f"{selected_section.replace(' ', '_').lower()}_report.pdf",
+                    mime="application/pdf",
+                )
+            else:
+                st.button(
+                    label="Download Report as PDF",            
+                    disabled=True
+                )
         with col2:
             st.download_button(
                 label="Download Report as Markdown",

@@ -1,82 +1,84 @@
-# Best-Practices Compliance Report for **https://www.jeinsat.com/**  
+# Best-Practices Compliance Report for https://www.jeinsat.com/  
 
 ## Compliance Score  
-**Overall Compliance Score:** Unable to provide specific aggregated score, but below you will find itemized assessments of key metrics and areas for improvement.  
+The website scores moderately on web development best practices, with evident potential for improvement in key areas. Some critical issues, such as HTTPS implementation and resolving mixed content warnings, need urgent attention.  
 
 ---
 
-## Key Metrics and Values  
+## Key Metrics and Their Values  
 
-- **HTTPS Usage:**  
-  - **Status:** Does not meet security best practices.  
-  - **Issue:** The site serves some insecure resources, resulting in **"mixed content"** warnings.  
-  - **Details:**  
-    - `http://20.19.80.208:5000/footer-info` (Blocked)  
-    - `http://20.19.80.208:5000/partner` (Blocked)  
+- **Secure Connection (HTTPS)**:  
+  - **Status**: Not compliant.  
+  - **Issues Found**: Two insecure requests were identified.  
+    - http://20.19.80.208:5000/footer-info  
+    - http://20.19.80.208:5000/partner  
+  - **Description**: HTTPS implementation is flawed with mixed content warnings due to resources being served over HTTP.  
 
-- **Character Encoding (Charset):**  
-  - **Status:** The page properly defines the charset.  
+- **Error Logs in Console**:   
+  - **Status**: Non-compliant.  
+  - Issues logged due to mixed content and minor code errors.  
+  - Examples:  
+    - **Mixed Content**: The page at "https://www.jeinsat.com/" requested insecure endpoints.  
+    - **JavaScript Error**: Y flagged in the console.  
 
-- **Image Optimization:**  
-  - **Aspect Ratio Compliance:** Images are displayed with the correct aspect ratio.  
-  - **Resolution Compliance:** Responsive images are served with appropriate resolution for display requirements.  
+- **Requests for Permissions**:  
+  - **Geolocation Permission**: Not requested on page load (Good).  
+  - **Notification Permission**: Handled responsibly and not bothering users unnecessarily.  
 
-- **Meta Viewport:**  
-  - **Status:** Configured for mobile performance.  
-  - **Details:** Meta viewport tag is present with content `width=device-width, initial-scale=1`.  
+- **Browser Features**:  
+  - Character encoding properly defined (Good).  
+  - Responsive images serve correct sizes and display proper aspect ratios.  
 
-- **Content Security Policy (CSP):**  
-  - **Status:** No CSP found in enforcement mode, which may leave the site vulnerable to XSS attacks.  
+- **Content Security Policy (CSP)**:  
+  - **Status**: CSP not found in enforced mode, leaving the site vulnerable to XSS attacks.  
 
-- **Browser Console Errors:**  
-  - **Status:** Encountered errors.  
-  - **Details:**  
-    - **Type:** Mixed Content  
-      - A secure page requests resources over an insecure connection (`http://`).  
+- **User Experience**:  
+  - Font sizes are likely legible, optimized for mobile use (Compliance not applicable on this run).  
+  - Viewport meta tag correctly implemented for mobile responsiveness.  
 
-- **JavaScript Libraries:** Not applicable for assessment in this context.  
-
----
-
-## Opportunities for Improvement & Violations  
-
-### 1. **Address Mixed Content Issues:**  
-   - Secure all resources (e.g., `http://20.19.80.208:5000`) to use HTTPS. Mixed content will break HTTPS integrity and potentially expose sensitive information.  
-   - [Google’s Guidance on Mixed Content](https://developers.google.com/web/fundamentals/security/prevent-mixed-content/what-is-mixed-content).  
-
-### 2. **Implement Content Security Policy (CSP):**  
-   - Enforce a strong CSP to mitigate risks of cross-site scripting (XSS) attacks.  
-   - [Learn more on how to create and enforce a CSP](https://developer.chrome.com/docs/lighthouse/best-practices/csp-xss/).  
-
-### 3. **Fix Browser Console Errors:**  
-   - Ensure all third-party scripts or resources are up-to-date and securely loaded (HTTPS).  
+- **Source Maps for Debugging**:  
+  - Valid source maps are available for better debugging during production.  
 
 ---
 
-## Diagnostics  
-1. Mixed content issues resulted in resource blocking:  
-   - May affect the page rendering and response.  
-2. Lack of CSP enforcement is a high-security risk.  
+## Opportunities for Improvement  
+
+1. **Enable Full HTTPS Compliance**:  
+   - Redirect all HTTP traffic to HTTPS and fix mixed content issues.  
+   - Ensure all internal and external resources (e.g., images, APIs) are served over HTTPS.  
+   
+2. **Improve Console Error Handling**:  
+   - Investigate and fix logged errors to ensure smooth operation across browsers.  
+
+3. **Implement and Enforce Content Security Policy (CSP)**:  
+   - Add and enforce a robust CSP to mitigate cross-site scripting (XSS) vulnerabilities.  
+
+4. **Enhance Security Features**:  
+   - Ensure all endpoints and API calls utilize HTTPS to enhance user trust and security.  
+
+5. **Optimize Assets**:  
+   - Review server calls for any blocked resources to improve overall performance and accessibility.  
+
+6. **Test Error Logs During Development**:  
+   - Look into the small JavaScript errors logged (e.g., `"Y"` flagged) to clean up codebase maintainability.  
 
 ---
 
-## Suggestions for Improving Compliance  
+## Diagnosed Issues  
 
-1. **Migrate All Resources to HTTPS:**  
-   - Ensure every asset is loaded through a secure HTTPS connection to guarantee encryption and prevent mixed content.  
+1. **Mixed Content Warnings**: HTTPS site loading HTTP resources.  
+2. **Console Errors**: Mixed content-related issues and JavaScript errors.  
+3. **Lack of Content Security Policy**: Increases risks of vulnerability.  
+4. **Best Practices Impact Limited by Inactive Diagnostics on Font Sizes**: Requires finer tuning for UX.  
 
-2. **Enforce a Strict CSP:**  
-   - Write and implement a Content Security Policy to limit the sources from which the browser can load content.  
+---
 
-3. **Use a DevTools Audit Tool:**  
-   - Regularly run performance and best-practices audits in the Chrome DevTools "Lighthouse" panel to catch issues early on.  
+## Suggestions for Improvement  
 
-4. **Fix JavaScript Console Errors:**  
-   - Debug scripts to reduce potential bottlenecks in resource loading or security issues from mixed requests.  
+- Perform a full audit of the HTTP requests being made and update all resources (especially those pointing to `http://20.19.80.208...`) to HTTPS.  
+- Apply a strong Content Security Policy to prevent malicious scripts.  
+- Regularly monitor and debug the console for errors, ensuring these are resolved during development.  
+- Conduct a UX audit for font sizes, legibility, and user flow.  
+- Enhance the website’s Lighthouse audit score by maintaining all aspects of modern web standards, including SEO, accessibility, and PWA performance indicators.  
 
-5. **Optimize Resource Handling:**  
-   - Review unnecessary or malformed requests and eliminate any redundant legacy references.  
-
---- 
-
-By addressing the above suggestions, the website can improve its alignment with modern web development standards for usability, performance, and security.
+By addressing these areas, the website can achieve greater adherence to modern web development standards, strengthen user trust, and improve its overall performance.

@@ -74,6 +74,12 @@ class QaReview():
    			tools=[PageHTTPHeaderTool()],
 			verbose=True
 		)
+	
+	@agent
+	def kpi_extractor(self) -> Agent:
+		return Agent(
+			config=self.agents_config['kpi_extractor'],
+		)
   	
   
 	@agent
@@ -134,11 +140,20 @@ class QaReview():
 			output_file="outputs/security_report.md"
 		)
 
+ 
+	@task
+	def generate_kpi_json_task(self) -> Task:
+		return Task(
+			config=self.tasks_config['generate_kpi_json_task'],
+       		context=[self.analyze_web_performance_task(),self.analyze_web_accessibility_task(),self.analyze_web_best_practices_task(),self.analyze_SEO_task(),self.analyze_html_task(),self.analyze_http_security_task()],
+			output_file='outputs/kpis.json'
+		)
+ 
 	@task
 	def reporting_task(self) -> Task:
 		return Task(
 			config=self.tasks_config['reporting_task'],
-       		context=[self.analyze_web_performance_task(),self.analyze_web_accessibility_task(),self.analyze_web_best_practices_task(),self.analyze_SEO_task(),self.analyze_html_task(),self.analyze_http_security_task()],
+       		context=[self.analyze_web_performance_task(),self.analyze_web_accessibility_task(),self.analyze_web_best_practices_task(),self.analyze_SEO_task(),self.analyze_html_task(),self.analyze_http_security_task(),self.generate_kpi_json_task()],
 			output_file='outputs/report.md'
 		)
 
@@ -148,7 +163,6 @@ class QaReview():
 		# To learn how to add knowledge sources to your crew, check out the documentation:
 		# https://docs.crewai.com/concepts/knowledge#what-is-knowledge
 
-  
 		return Crew(
 			agents=self.agents, # Automatically created by the @agent decorator
 			tasks=self.tasks, # Automatically created by the @task decorator
