@@ -19,8 +19,10 @@ class PageHTTPHeaderTool(BaseTool):
         if not url:
             return "No URL provided to analyze."
         try:
+            # send a GET request to the website
             response = requests.get(url)
             response.raise_for_status()
+            #return the http header
             return response.headers
         except requests.exceptions.MissingSchema:
             return "Invalid URL format. Make sure the URL starts with http:// or https://"

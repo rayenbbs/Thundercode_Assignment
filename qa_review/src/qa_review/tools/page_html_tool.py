@@ -22,11 +22,11 @@ class PageHTMLTool(BaseTool):
             return "No URL provided to analyze."
         
         try:
-            # Send a GET request to the website
+            # send a GET request to the website
             response = requests.get(url, timeout=10)
             response.raise_for_status()
 
-            # Return the HTML content of the website
+            # return the HTML content of the website
             return response.text
         except requests.exceptions.MissingSchema:
             return "Invalid URL format. Make sure the URL starts with http:// or https://"

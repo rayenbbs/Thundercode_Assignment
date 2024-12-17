@@ -26,13 +26,13 @@ class PageBestPracticesTool(BaseTool):
         
         base_api_url = "https://www.googleapis.com/pagespeedonline/v5/runPagespeed"
         try:
-            # Construct API call URL
+            # construct API call URL
             api_url = f"{base_api_url}?url={url}&category=best-practices&key={os.getenv("PAGE_INSIGHTS_API_KEY")}"
-            # Make the GET request
+            # make the GET request
             response = requests.get(api_url)
-            response.raise_for_status()  # Raise an error for HTTP issues
+            response.raise_for_status()  # raise an error for HTTP issues
             json_data=response.json()
-            
+            #filtering the data
             json_data=json_data["lighthouseResult"]["audits"]
             return json_data
         
