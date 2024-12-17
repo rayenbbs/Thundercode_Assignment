@@ -1,19 +1,10 @@
-__import__('pysqlite3')
-import sys
-
-sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
-
-
 import streamlit as st
 from src.qa_review.crew import QaReview
 from dotenv import load_dotenv
 from UI.utilities.helpers import is_valid_url, load_markdown, display_charts,display_download_buttons
-import path
-dir = path.Path(__file__).absolute()
-sys.path.append(dir.parent.parent)
+
+
 load_dotenv()
-
-
 sections = {
     "KPIs":"./outputs/kpis.json",
     "Overall QA Review": "./outputs/report.md",
