@@ -8,11 +8,10 @@ import streamlit as st
 from src.qa_review.crew import QaReview
 from dotenv import load_dotenv
 from UI.utilities.helpers import is_valid_url, load_markdown, display_charts,display_download_buttons
-import path
+import os
 
-
-dir = path.Path(__file__).abspath()
-sys.path.append(dir.parent.parent)
+dir = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(os.path.dirname(os.path.dirname(dir)))  # Moves two directories up
 load_dotenv()
 
 
