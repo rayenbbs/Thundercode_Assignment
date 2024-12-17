@@ -500,15 +500,7 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/00/2e/d53fa4befbf2cfa713304affc7ca780ce4fc1fd8710527771b58311a3229/click-8.1.7-py3-none-any.whl", hash = "sha256:ae74fb96c20a0277a1d615f1e4d73c8414f5a98db8b799a7931d1582f3390c28", size = 97941 },
 ]
 
-[[package]]
-name = "pysqlite3-binary"
-version = "0.4.6"
-source = { registry = "https://pypi.org/simple" }
-dependencies = []
-sdist = { url = "https://files.pythonhosted.org/packages/ab/c8/a539285d53e4c5c77100e5e82f3d97a496cfb971e6726bfa810d075d7a4e/pysqlite3-binary-0.4.6.tar.gz", hash = "sha256:66eb21d5b2aaf39b00c94f60d01bb4e3d183739e22e9ffb93a43d8e795616f3b", size = 183923 }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/f9/d4/9ad9c7d9355a72bb53c6355d3ec06de295ab14e62a4c27a24378b97475e5/pysqlite3_binary-0.4.6-cp39-cp39-manylinux1_x86_64.whl", hash = "sha256:ef604c7a33cc25c2b34472da8b935d0e30b55b65f287337c3e1d8f3810a42f99", size = 47939 },
-]
+
 
 [[package]]
 name = "cohere"
