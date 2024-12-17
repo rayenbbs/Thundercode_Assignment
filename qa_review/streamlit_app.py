@@ -8,18 +8,23 @@ import streamlit as st
 from src.qa_review.crew import QaReview
 from dotenv import load_dotenv
 from UI.utilities.helpers import is_valid_url, load_markdown, display_charts,display_download_buttons
-import os
+import path
 
+
+dir = path.Path(__file__).abspath()
+sys.append.path(dir.parent.parent)
 load_dotenv()
+
+
 sections = {
-    "KPIs": os.path.join(os.getcwd(), "outputs", "kpis.json"),
-    "Overall QA Review": os.path.join(os.getcwd(), "outputs", "report.md"),
-    "Accessibility": os.path.join(os.getcwd(), "outputs", "accessibility_report.md"),
-    "Best Practices": os.path.join(os.getcwd(), "outputs", "best_practices_report.md"),
-    "HTML and Content": os.path.join(os.getcwd(), "outputs", "html_report.md"),
-    "Performance": os.path.join(os.getcwd(), "outputs", "performance_report.md"),
-    "Security": os.path.join(os.getcwd(), "outputs", "security_report.md"),
-    "SEO": os.path.join(os.getcwd(), "outputs", "SEO_report.md")
+    "KPIs":"./outputs/kpis.json",
+    "Overall QA Review": "./outputs/report.md",
+    "Accessibility": "./outputs/accessibility_report.md",
+    "Best Practices": "./outputs/best_practices_report.md",
+    "HTML and Content": "./outputs/html_report.md",
+    "Performance": "./outputs/performance_report.md",
+    "Security": "./outputs/security_report.md",
+    "SEO": "./outputs/SEO_report.md"
 }
 
 #initializing the crewAI crew
