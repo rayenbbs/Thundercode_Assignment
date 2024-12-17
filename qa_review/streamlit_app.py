@@ -30,7 +30,7 @@ if st.button("Run Analysis"):
         with st.spinner("Running analysis..."):
             try:
                 inputs = {"website_url": url,"topic":"Quality Assurance"}
-                #results = testing_crew.crew().kickoff(inputs=inputs)
+                results = testing_crew.crew().kickoff(inputs=inputs)
                 st.session_state["analysis_complete"] = True
                 st.success("Analysis completed! Use the sidebar to navigate between sections.")
             except Exception as e:
