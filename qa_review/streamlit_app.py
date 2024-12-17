@@ -8,21 +8,21 @@ import streamlit as st
 from src.qa_review.crew import QaReview
 from dotenv import load_dotenv
 from UI.utilities.helpers import is_valid_url, load_markdown, display_charts,display_download_buttons
-import path
-dir = path.Path(__file__).absolute()
-sys.path.append(dir.parent)
+import sys
+from pathlib import Path
+dir = Path(__file__).absolute().parent
+sys.path.append(str(dir.parent))  # Go one level up from the current directory
 load_dotenv()
 
-
 sections = {
-    "KPIs":"./outputs/kpis.json",
-    "Overall QA Review": "./outputs/report.md",
-    "Accessibility": "./outputs/accessibility_report.md",
-    "Best Practices": "./outputs/best_practices_report.md",
-    "HTML and Content": "./outputs/html_report.md",
-    "Performance": "./outputs/performance_report.md",
-    "Security": "./outputs/security_report.md",
-    "SEO": "./outputs/SEO_report.md"
+    "KPIs": Path(dir, "qa_review", "outputs", "kpis.json"),
+    "Overall QA Review": Path(dir, "qa_review", "outputs", "report.md"),
+    "Accessibility": Path(dir, "qa_review", "outputs", "accessibility_report.md"),
+    "Best Practices": Path(dir, "qa_review", "outputs", "best_practices_report.md"),
+    "HTML and Content": Path(dir, "qa_review", "outputs", "html_report.md"),
+    "Performance": Path(dir, "qa_review", "outputs", "performance_report.md"),
+    "Security": Path(dir, "qa_review", "outputs", "security_report.md"),
+    "SEO": Path(dir, "qa_review", "outputs", "SEO_report.md")
 }
 
 #initializing the crewAI crew
