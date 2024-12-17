@@ -1,7 +1,6 @@
 from crewai import Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, crew, task
 
-
 from src.qa_review.tools.page_accessibility_tool import PageAccessibilityTool
 from src.qa_review.tools.page_performance_tool import PagePerformanceTool
 from src.qa_review.tools.page_best_practices_tool import PageBestPracticesTool
@@ -9,28 +8,19 @@ from src.qa_review.tools.page_seo_tool import PageSEOTool
 from src.qa_review.tools.page_html_tool import PageHTMLTool
 from src.qa_review.tools.page_http_header_tool import PageHTTPHeaderTool
 
-# If you want to run a snippet of code before or after the crew starts, 
-# you can use the @before_kickoff and @after_kickoff decorators
-# https://docs.crewai.com/concepts/crews#example-crew-class-with-decorators
-
 
 @CrewBase
 class QaReview():
 	"""QaReview crew"""
-
-	# Learn more about YAML configuration files here:
-	# Agents: https://docs.crewai.com/concepts/agents#yaml-configuration-recommended
-	# Tasks: https://docs.crewai.com/concepts/tasks#yaml-configuration-recommended
+ 
 	agents_config = 'config/agents.yaml'
 	tasks_config = 'config/tasks.yaml'
-
-	# If you would like to add tools to your agents, you can learn more about it here:
-	# https://docs.crewai.com/concepts/agents#agent-tools
+	#defining the agents
 	@agent
 	def pagePerformance_analyzer(self) -> Agent:
 		return Agent(
 			config=self.agents_config['pagePerformance_analyzer'],
-   			tools=[PagePerformanceTool()],
+   			tools=[PagePerformanceTool()], #the tool used by the agent
 			verbose=True
 		)
   
@@ -39,7 +29,7 @@ class QaReview():
 	def pageAccessibility_analyzer(self) -> Agent:
 		return Agent(
 			config=self.agents_config['pageAccessibility_analyzer'],
-   			tools=[PageAccessibilityTool()],
+   			tools=[PageAccessibilityTool()], #the tool used by the agent
 			verbose=True
 		)
 	
@@ -47,7 +37,7 @@ class QaReview():
 	def pageBestPractices_analyzer(self) -> Agent:
 		return Agent(
 			config=self.agents_config['pageBestPractices_analyzer'],
-   			tools=[PageBestPracticesTool()],
+   			tools=[PageBestPracticesTool()], #the tool used by the agent
 			verbose=True
 		)
   
@@ -55,7 +45,7 @@ class QaReview():
 	def pageSEO_analyzer(self) -> Agent:
 		return Agent(
 			config=self.agents_config['pageSEO_analyzer'],
-   			tools=[PageSEOTool()],
+   			tools=[PageSEOTool()], #the tool used by the agent
 			verbose=True
 		)
   
@@ -63,7 +53,7 @@ class QaReview():
 	def html_content_analyzer(self) -> Agent:
 		return Agent(
 			config=self.agents_config['html_content_analyzer'],
-   			tools=[PageHTMLTool()],
+   			tools=[PageHTMLTool()], #the tool used by the agent
 			verbose=True
 		)
   
@@ -71,7 +61,7 @@ class QaReview():
 	def web_security_specialist(self) -> Agent:
 		return Agent(
 			config=self.agents_config['web_security_specialist'],
-   			tools=[PageHTTPHeaderTool()],
+   			tools=[PageHTTPHeaderTool()], #the tool used by the agent
 			verbose=True
 		)
 	
@@ -88,15 +78,12 @@ class QaReview():
 			config=self.agents_config['reporting_analyst'],
 			verbose=True,
 		)
-
-	# To learn more about structured task outputs, 
-	# task dependencies, and task callbacks, check out the documentation:
-	# https://docs.crewai.com/concepts/tasks#overview-of-a-task
+	#defining the tasks
 	@task
 	def analyze_web_performance_task(self) -> Task:
 		return Task(
 			config=self.tasks_config['analyze_web_performance_task'],
-      		async_execution=True,
+      		async_execution=True, #async for parallel execution
 			output_file='outputs/performance_report.md'
 		)
   
@@ -104,7 +91,7 @@ class QaReview():
 	def analyze_web_accessibility_task(self) -> Task:
 		return Task(
 			config=self.tasks_config['analyze_web_accessibility_task'],
-      		async_execution=True,
+      		async_execution=True, #async for parallel execution
         	output_file='outputs/accessibility_report.md'
 		)
   
@@ -112,7 +99,7 @@ class QaReview():
 	def analyze_web_best_practices_task(self) -> Task:
 		return Task(
 			config=self.tasks_config['analyze_web_best_practices_task'],
-   			async_execution=True,
+   			async_execution=True, #async for parallel execution
 			output_file='outputs/best_practices_report.md'
 		)
   
@@ -120,7 +107,7 @@ class QaReview():
 	def analyze_SEO_task(self) -> Task:
 		return Task(
 			config=self.tasks_config['analyze_SEO_task'],
-			async_execution=True,
+			async_execution=True, #async for parallel execution
 			output_file='outputs/SEO_report.md'
   		)
   
@@ -128,6 +115,7 @@ class QaReview():
 	def analyze_html_task(self) -> Task:
 		return Task(
 			config=self.tasks_config['analyze_html_task'],
+			#async for parallel execution
 			async_execution=True,
 			output_file='outputs/html_report.md'
 		)
@@ -136,6 +124,7 @@ class QaReview():
 	def analyze_http_security_task(self) -> Task:
 		return Task(
 			config=self.tasks_config['analyze_http_security_task'],
+			#async for parallel execution
 			async_execution=True,
 			output_file="outputs/security_report.md"
 		)
@@ -145,28 +134,29 @@ class QaReview():
 	def generate_kpi_json_task(self) -> Task:
 		return Task(
 			config=self.tasks_config['generate_kpi_json_task'],
+   			#added context so that the output of the other tasks is now accessible for this task.
        		context=[self.analyze_web_performance_task(),self.analyze_web_accessibility_task(),self.analyze_web_best_practices_task(),self.analyze_SEO_task(),self.analyze_html_task(),self.analyze_http_security_task()],
-			output_file='outputs/kpis.json'
+			#JSON file for KPIs
+   			output_file='outputs/kpis.json'
 		)
  
 	@task
 	def reporting_task(self) -> Task:
 		return Task(
 			config=self.tasks_config['reporting_task'],
+			#added context so that the output of the other tasks is now accessible for this task.
        		context=[self.analyze_web_performance_task(),self.analyze_web_accessibility_task(),self.analyze_web_best_practices_task(),self.analyze_SEO_task(),self.analyze_html_task(),self.analyze_http_security_task(),self.generate_kpi_json_task()],
 			output_file='outputs/report.md'
 		)
-
+  
+  
+	#defining the crew
 	@crew
 	def crew(self) -> Crew:
 		"""Creates the QaReview crew"""
-		# To learn how to add knowledge sources to your crew, check out the documentation:
-		# https://docs.crewai.com/concepts/knowledge#what-is-knowledge
-
 		return Crew(
 			agents=self.agents, # Automatically created by the @agent decorator
 			tasks=self.tasks, # Automatically created by the @task decorator
-			process=Process.sequential,
+			process=Process.sequential, #Sequential because the process is simple and doesn't necessitate dynamic allocation of tasks
 			verbose=True,
-			# process=Process.hierarchical, # In case you wanna use that instead https://docs.crewai.com/how-to/Hierarchical/
 		)
