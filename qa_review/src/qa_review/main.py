@@ -6,7 +6,7 @@ from qa_review.crew import QaReview
 
 warnings.filterwarnings("ignore", category=SyntaxWarning, module="pysbd")
 
-#these are functions for 
+# This main file is intended to be a way to run the crew locally
 
 def run():
     """
