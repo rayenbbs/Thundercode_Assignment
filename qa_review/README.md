@@ -17,7 +17,14 @@ Run this command:
 pip install -r requirements.txt
 ```
 
+---
+
+
 **Add your `API Keys` into the `.env` file following .env.example**
+
+
+---
+
 
 ## Running the Project
 
