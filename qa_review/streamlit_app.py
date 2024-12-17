@@ -10,7 +10,7 @@ from dotenv import load_dotenv
 from UI.utilities.helpers import is_valid_url, load_markdown, display_charts,display_download_buttons
 import sys
 from pathlib import Path
-dir = Path(__file__).absolute().parent
+dir = Path(__file__).absolute().parent.parent
 sys.path.append(str(dir.parent))  # Go one level up from the current directory
 load_dotenv()
 
