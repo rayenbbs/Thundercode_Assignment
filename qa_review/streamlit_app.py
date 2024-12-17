@@ -10,7 +10,7 @@ from dotenv import load_dotenv
 from UI.utilities.helpers import is_valid_url, load_markdown, display_charts,display_download_buttons
 import path
 dir = path.Path(__file__)
-sys.append.path(dir.parent.parent)
+sys.path.append(dir.parent.parent)
 load_dotenv()
 
 
