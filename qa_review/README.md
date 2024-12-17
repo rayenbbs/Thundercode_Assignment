@@ -9,19 +9,12 @@ Built with **Streamlit** and **CrewAI**.
 
 ## Installation
 
-Ensure you have Python >=3.10 <=3.13 installed on your system. This project uses [UV](https://docs.astral.sh/uv/) for dependency management and package handling, offering a seamless setup and execution experience.
-
-First, if you haven't already, install uv:
-
-```bash
-pip install uv
-```
+Ensure you have Python >=3.10 <=3.13 installed on your system. 
 
 Next, navigate to your project directory and install the dependencies:
-
-(Optional) Lock the dependencies and install them by using the CLI command:
+Run this command:
 ```bash
-crewai install
+pip install -r requirements.txt
 ```
 
 **Add your `API Keys` into the `.env` file following .env.example**
@@ -29,8 +22,7 @@ crewai install
 ## Running the Project
 
 Execute the following command to launch the Streamlit app:
-
 ```bash
-streamlit run app.py  
+streamlit run streamlit_app.py  
 ```
 
