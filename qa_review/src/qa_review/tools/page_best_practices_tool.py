@@ -28,20 +28,12 @@ class PageBestPracticesTool(BaseTool):
         try:
             # Construct API call URL
             api_url = f"{base_api_url}?url={url}&category=best-practices&key={os.getenv("PAGE_INSIGHTS_API_KEY")}"
-            
             # Make the GET request
             response = requests.get(api_url)
             response.raise_for_status()  # Raise an error for HTTP issues
             json_data=response.json()
             
             json_data=json_data["lighthouseResult"]["audits"]
-            #lighthouseResult_audits_keystokeep_reduced = {"is-on-https","errors-in-console", } 
-            #json_data= {
-            #    key: value
-            #    for key, value in json_data.items()
-            #    if key in lighthouseResult_audits_keystokeep_reduced
-            #}
-            # Return JSON as a formatted string
             return json_data
         
         except requests.exceptions.RequestException as e:
