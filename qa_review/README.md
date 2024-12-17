@@ -23,7 +23,6 @@ Next, navigate to your project directory and install the dependencies:
 ```bash
 crewai install
 ```
-### Customizing
 
 **Add your `API Keys` into the `.env` file following .env.example**
 
@@ -32,6 +31,6 @@ crewai install
 Execute the following command to launch the Streamlit app:
 
 ```bash
-$ streamlit run app.py  
+streamlit run app.py  
 ```
 
