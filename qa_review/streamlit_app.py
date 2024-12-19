@@ -39,6 +39,7 @@ if st.button("Run Analysis"):
                 inputs = {"website_url": url,"topic":"Quality Assurance"}
                 results = testing_crew.crew().kickoff(inputs=inputs).tasks_output
                 result_dict = {item.name: item.raw for item in results}
+                st.write(result_dict)
                 st.session_state["analysis_complete"] = True
                 st.success("Analysis completed! Use the sidebar to navigate between sections.")
             except Exception as e:
