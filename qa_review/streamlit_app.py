@@ -46,11 +46,12 @@ if st.button("Run Analysis"):
         st.warning("Please enter a valid URL.")
 
 
-for agent_name, output in results.items():
-        st.write(f"### {agent_name}")
-        st.write(output)  # You can also use st.json or other components
 
 if "analysis_complete" in st.session_state and st.session_state["analysis_complete"]:
+    
+    for agent_name, output in results.items():
+            st.write(f"### {agent_name}")
+            st.write(output)  # You can also use st.json or other components
     st.sidebar.title("Website QA Analysis Dashboard")
     selected_section = st.sidebar.radio("Select a Section:", list(sections.keys()))
     if(selected_section !="KPIs"):
