@@ -31,15 +31,19 @@ st.title("QA Review")
 st.write("Analyze web performance, accessibility, and best practices.")
 loading_placeholder = st.empty()
 url = st.text_input("Enter the URL to analyze:", placeholder="https://example.com (always type in this format)")
-result_dict={}
+
+# Use session state to store result_dict
+if "result_dict" not in st.session_state:
+    st.session_state.result_dict = {}
+
+
 if st.button("Run Analysis"):
     if (url and is_valid_url(url)):
         with st.spinner("Running analysis..."):
             try:
                 inputs = {"website_url": url,"topic":"Quality Assurance"}
                 results = testing_crew.crew().kickoff(inputs=inputs).tasks_output
-                result_dict = {item.name: item.raw for item in results}
-                st.write(result_dict)
+                st.session_state.result_dict = {item.name: item.raw for item in results}
                 st.session_state["analysis_complete"] = True
                 st.success("Analysis completed! Use the sidebar to navigate between sections.")
             except Exception as e:
@@ -53,14 +57,16 @@ if "analysis_complete" in st.session_state and st.session_state["analysis_comple
     if(selected_section !="KPIs"):
         st.title(f"{selected_section} Analysis")
         try:
+            result_dict=st.session_state.result_dict
             content = result_dict[sections[selected_section]]
             display_download_buttons(content,selected_section)
             st.markdown(content, unsafe_allow_html=True)
         except FileNotFoundError:
             st.error(f"Content for {selected_section} not found. Please ensure the file exists.")
     else:
-         st.title("KPIs Visualization:")
-         display_charts(result_dict[sections[selected_section]])
+        result_dict=st.session_state.result_dict
+        st.title("KPIs Visualization:")
+        display_charts(result_dict[sections[selected_section]])
 else:
     st.info("Run the analysis to unlock the dashboard.")
     
