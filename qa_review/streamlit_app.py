@@ -48,8 +48,7 @@ if st.button("Run Analysis"):
 
 
 if "analysis_complete" in st.session_state and st.session_state["analysis_complete"]:
-    
-    for agent_name, output in results.items():
+    for agent_name, output in results.json_dict.items():
             st.write(f"### {agent_name}")
             st.write(output)  # You can also use st.json or other components
     st.sidebar.title("Website QA Analysis Dashboard")
