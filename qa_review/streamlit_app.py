@@ -31,7 +31,7 @@ st.title("QA Review")
 st.write("Analyze web performance, accessibility, and best practices.")
 loading_placeholder = st.empty()
 url = st.text_input("Enter the URL to analyze:", placeholder="https://example.com (always type in this format)")
-
+results=None
 if st.button("Run Analysis"):
     if (url and is_valid_url(url)):
         with st.spinner("Running analysis..."):
@@ -44,7 +44,12 @@ if st.button("Run Analysis"):
                 st.error(f"An error occurred: {e}")
     else:
         st.warning("Please enter a valid URL.")
-         
+
+
+for agent_name, output in results.items():
+        st.write(f"### {agent_name}")
+        st.write(output)  # You can also use st.json or other components
+
 if "analysis_complete" in st.session_state and st.session_state["analysis_complete"]:
     st.sidebar.title("Website QA Analysis Dashboard")
     selected_section = st.sidebar.radio("Select a Section:", list(sections.keys()))
