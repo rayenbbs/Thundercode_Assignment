@@ -31,7 +31,7 @@ st.title("QA Review")
 st.write("Analyze web performance, accessibility, and best practices.")
 loading_placeholder = st.empty()
 url = st.text_input("Enter the URL to analyze:", placeholder="https://example.com (always type in this format)")
-result_dict=None
+result_dict={}
 if st.button("Run Analysis"):
     if (url and is_valid_url(url)):
         with st.spinner("Running analysis..."):

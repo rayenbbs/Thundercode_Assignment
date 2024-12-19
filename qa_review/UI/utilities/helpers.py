@@ -81,7 +81,7 @@ def display_download_buttons(content,selected_section):
 
 def display_charts(json_data):
     try:
-        
+        json_data=json.loads(json_data)
         # Convert JSON data into a DataFrame
         data = []
         for key, value in json_data.items():
